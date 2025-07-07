@@ -120,3 +120,10 @@ button:hover {
   background-color: #f9f9f9;
   min-height: 20px;
 }
+.about-image {
+  max-width: 200px;
+  border-radius: 8px;
+  display: block;
+  margin: 0 auto 20px;
+
+}
