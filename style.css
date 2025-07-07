@@ -79,6 +79,8 @@ section.visible {
   visibility: visible;
 }
 
+
+
 .project-meta {
   font-size: 14px;
   margin-bottom: 8px;
@@ -133,5 +135,5 @@ button:hover {
   max-width: 200px;
   border-radius: 8px;
   display: block;
-  margin: 20px auto; /* Centered with top/bottom spacing */
+  margin: 0px auto; /* Centered with top/bottom spacing */
 }
