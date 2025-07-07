@@ -65,8 +65,8 @@ main {
 }
 
 section {
+  margin: 0 auto 40px;
   max-width: 700px;
-  margin: 20px auto; /* Less top margin for About */
   padding: 0 20px;
   opacity: 0;
   visibility: hidden;
@@ -135,5 +135,5 @@ button:hover {
   max-width: 200px;
   border-radius: 8px;
   display: block;
-  margin: 0px auto; /* Centered with top/bottom spacing */
+  margin: 0 auto 20px; /* Centered with top/bottom spacing */
 }
