@@ -1,6 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-  console.log('JavaScript is now running!');
-
   const mainTab = document.getElementById('mainTab');
   const aboutTab = document.getElementById('aboutTab');
   const mainSection = document.getElementById('mainSection');
@@ -9,23 +7,29 @@ document.addEventListener('DOMContentLoaded', function() {
   const button = document.getElementById('demoButton');
   const messageArea = document.getElementById('messageDisplay');
 
-  // Show Main section and hide About section
+  // Start with Main visible
+  mainSection.classList.add('visible');
+
   mainTab.addEventListener('click', function(e) {
     e.preventDefault();
-    mainSection.style.display = 'block';
-    aboutSection.style.display = 'none';
+    mainSection.classList.add('visible');
+    aboutSection.classList.remove('visible');
+
+    mainTab.classList.add('active');
+    aboutTab.classList.remove('active');
   });
 
-  // Show About section and hide Main section
   aboutTab.addEventListener('click', function(e) {
     e.preventDefault();
-    mainSection.style.display = 'none';
-    aboutSection.style.display = 'block';
+    aboutSection.classList.add('visible');
+    mainSection.classList.remove('visible');
+
+    aboutTab.classList.add('active');
+    mainTab.classList.remove('active');
   });
 
-  // Interactive button demo
+  // Button click interaction
   button.addEventListener('click', function() {
-    console.log('Button was clicked!');
     const currentTime = new Date().toLocaleTimeString();
     const message = 'Hello! You clicked the button at ' + currentTime;
     messageArea.textContent = message;
