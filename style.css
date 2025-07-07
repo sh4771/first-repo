@@ -129,3 +129,8 @@ button:hover {
 
 }
 
+section#about {
+  max-width: 700px;
+  margin: 20px auto; /* less top margin */
+  padding: 0 20px;
+}
