@@ -57,20 +57,20 @@ header .right a:hover {
 
 main {
   max-width: 700px;
-  margin: 30px auto; /* tighter top margin under header */
+  margin: 30px auto; /* Tighter gap below header */
   padding: 0 20px;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.5s ease, visibility 0.5s ease;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 section {
   max-width: 700px;
-  margin: 10px auto 40px; /* minimal top margin under header */
+  margin: 20px auto; /* Small gap below header */
   padding: 0 20px;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.5s ease, visibility 0.5s ease;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 main.visible,
@@ -133,5 +133,5 @@ button:hover {
   max-width: 200px;
   border-radius: 8px;
   display: block;
-  margin: 0 auto 20px; /* centered, bottom spacing only */
+  margin: 20px auto; /* centered, tidy gap below */
 }

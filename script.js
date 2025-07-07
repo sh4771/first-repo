@@ -7,14 +7,13 @@ document.addEventListener('DOMContentLoaded', function() {
   const button = document.getElementById('demoButton');
   const messageArea = document.getElementById('messageDisplay');
 
-  // Start with Main visible
+  // Show Main by default
   mainSection.classList.add('visible');
 
   mainTab.addEventListener('click', function(e) {
     e.preventDefault();
     mainSection.classList.add('visible');
     aboutSection.classList.remove('visible');
-
     mainTab.classList.add('active');
     aboutTab.classList.remove('active');
   });
@@ -23,12 +22,11 @@ document.addEventListener('DOMContentLoaded', function() {
     e.preventDefault();
     aboutSection.classList.add('visible');
     mainSection.classList.remove('visible');
-
     aboutTab.classList.add('active');
     mainTab.classList.remove('active');
   });
 
-  // Button click interaction
+  // Interactive button demo
   button.addEventListener('click', function() {
     const currentTime = new Date().toLocaleTimeString();
     const message = 'Hello! You clicked the button at ' + currentTime;
