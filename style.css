@@ -121,9 +121,11 @@ button:hover {
   min-height: 20px;
 }
 .about-image {
+  margin-top: 40px;
   max-width: 200px;
   border-radius: 8px;
   display: block;
   margin: 0 auto 20px;
 
 }
+
