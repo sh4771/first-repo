@@ -55,10 +55,18 @@ header .right a:hover {
   text-decoration: underline;
 }
 
-main,
+main {
+  max-width: 700px;
+  margin: 30px auto; /* tighter top margin under header */
+  padding: 0 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
 section {
   max-width: 700px;
-  margin: 80px auto;
+  margin: 10px auto 40px; /* minimal top margin under header */
   padding: 0 20px;
   opacity: 0;
   visibility: hidden;
@@ -119,4 +127,11 @@ button:hover {
   border: 1px solid #ccc;
   background-color: #f9f9f9;
   min-height: 20px;
+}
+
+.about-image {
+  max-width: 200px;
+  border-radius: 8px;
+  display: block;
+  margin: 0 auto 20px; /* centered, bottom spacing only */
 }
