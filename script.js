@@ -1,8 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
   const mainTab = document.getElementById('mainTab');
   const aboutTab = document.getElementById('aboutTab');
+  const assignmentTab = document.getElementById('assignmentTab');  
+
   const mainSection = document.getElementById('mainSection');
   const aboutSection = document.getElementById('aboutSection');
+  const assignmentSection = document.getElementById('assignmentSection');
 
   const button = document.getElementById('demoButton');
   const messageArea = document.getElementById('messageDisplay');
@@ -16,6 +19,8 @@ document.addEventListener('DOMContentLoaded', function() {
     aboutSection.classList.remove('visible');
     mainTab.classList.add('active');
     aboutTab.classList.remove('active');
+    assignmentSection.classList.remove('visible');
+    assignmentTab.classList.remove('active');
   });
 
   aboutTab.addEventListener('click', function(e) {
@@ -24,7 +29,20 @@ document.addEventListener('DOMContentLoaded', function() {
     mainSection.classList.remove('visible');
     aboutTab.classList.add('active');
     mainTab.classList.remove('active');
+    assignmentSection.classList.remove('visible');
+    assignmentTab.classList.remove('active');
   });
+
+  assignmentTab.addEventListener('click', function(e) {
+    e.preventDefault();
+    assignmentSection.classList.add('visible');
+    mainSection.classList.remove('visible');
+    aboutSection.classList.remove('visible');
+    assignmentTab.classList.add('active');
+    mainTab.classList.remove('active');  
+    aboutTab.classList.remove('active'); // good
+});
+
 
   // Interactive button demo
   button.addEventListener('click', function() {
