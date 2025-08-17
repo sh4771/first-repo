@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  
+  <link rel="stylesheet" type="text/css" href="./inspector.css">
   <script src="https://cdn.jsdelivr.net/npm/p5@1.11.8/lib/p5.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/p5@1.11.8/lib/addons/p5.sound.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="script.js"></script>
+
   <meta charset="UTF-8" />
   <title>Violet Hyun's Website</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet" />
@@ -53,25 +58,19 @@
     <div class="project-title">Computational Design Workflows</div>
     <div class="section">
       <p>2D Spatial Canvases:<br>
-  <a href="https://editor.p5js.org/vhyunn/full/TvUqEx6lo" target="_blank">
-    <div id = "canvas-1" ></div>
-    View 2D Sketch
-  </a>
+  
+    <div id = "canvas-1"></div>
+    <div id="canvas-2"></div>
+
 </p>
       <p>3D Spatial Canvases:<br>
-  <a href="https://editor.p5js.org/vhyunn/sketches/yyctgr9yY" target="_blank">
-    View 3D Sketch
-  </a>
+  <div id="threejs-container" style="width: 720px; height: 400px; margin: 20px 0;"></div>
 </p>
       <p>Temporal Structures:<br>
-  <a href="github.com/sh4771/assn4" target="_blank">
-    View Temporal Structures
-  </a>
+  <div id="temporal-canvas"></div>
 </p>
       <p>Relational Structures: <br>
-  <a href="https://sh4771.github.io/assn5_relationalstructures/" target="_blank">
-    View Relational Structures
-  </a>
+  <div id="relational-container"></div>
 </p>
 
       <p>Geospatial Structures: <br>
@@ -90,7 +89,9 @@
   </section>
 
   <script src="script.js"></script>
-
   <script src="p5-canvas.js"></script>
+  <script src="threejs-scene.js"></script>
+  <script src="temporal-structures-simple.js"></script>
+  <script src="relational-structures.js"></script>
 </body>
 </html>
