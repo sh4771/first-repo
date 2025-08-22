@@ -1,17 +1,204 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  
-  <link rel="stylesheet" type="text/css" href="./inspector.css">
-  <script src="https://cdn.jsdelivr.net/npm/p5@1.11.8/lib/p5.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.8/lib/addons/p5.sound.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="script.js"></script>
-
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Violet Hyun's Website</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="./inspector.css">
   <link rel="stylesheet" href="style.css" />
+  
+  <!-- Firebase Poll Styles -->
+  <style>
+    .poll-container {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      margin: 20px auto;
+    }
+
+    .poll-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #667eea, #764ba2);
+    }
+
+    .poll-title {
+      color: #333;
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .poll-question {
+      color: #666;
+      font-size: 18px;
+      margin-bottom: 30px;
+      line-height: 1.5;
+    }
+
+    .vote-buttons {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .vote-btn {
+      flex: 1;
+      padding: 15px 30px;
+      font-size: 18px;
+      font-weight: 600;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .vote-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .vote-btn:active {
+      transform: translateY(0);
+    }
+
+    .yes-btn {
+      background: linear-gradient(135deg, #4CAF50, #45a049);
+      color: white;
+    }
+
+    .no-btn {
+      background: linear-gradient(135deg, #f44336, #d32f2f);
+      color: white;
+    }
+
+    .results-section {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 20px;
+    }
+
+    .results-title {
+      color: #333;
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .vote-result {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      padding: 12px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .vote-label {
+      font-weight: 600;
+      color: #333;
+    }
+
+    .vote-count {
+      font-size: 18px;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 20px;
+      background: #e3f2fd;
+      color: #1976d2;
+    }
+
+    .total-votes {
+      text-align: center;
+      font-size: 16px;
+      color: #666;
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 2px solid #e0e0e0;
+    }
+
+    .connection-status {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .connected {
+      background: #e8f5e8;
+      color: #2e7d32;
+    }
+
+    .disconnected {
+      background: #ffebee;
+      color: #c62828;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: #e0e0e0;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+
+    .progress-yes, .progress-no {
+      height: 100%;
+      transition: width 0.5s ease;
+    }
+
+    .progress-yes {
+      background: linear-gradient(90deg, #4CAF50, #45a049);
+    }
+
+    .progress-no {
+      background: linear-gradient(90deg, #f44336, #d32f2f);
+    }
+
+    .ethics-note {
+      font-size: 12px;
+      color: #888;
+      text-align: center;
+      margin-top: 20px;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 600px) {
+      .poll-container {
+        padding: 30px 20px;
+      }
+
+      .vote-buttons {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .poll-title {
+        font-size: 24px;
+      }
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -24,7 +211,6 @@
       <a href="#" id="mainTab" class="active">Main</a>
       <a href="#" id="aboutTab">About</a>
       <a href="#" id="assignmentTab">Assignments</a>
-
     </div>
   </header>
 
@@ -57,41 +243,244 @@
   <section id="assignmentSection">
     <div class="project-title">Computational Design Workflows</div>
     <div class="section">
-      <p>2D Spatial Canvases:<br>
-  
-    <div id = "canvas-1"></div>
-    <div id="canvas-2"></div>
+      <p><strong>2D Spatial Canvases:</strong></p>
+      <div id="canvas-1"></div>
+      <div id="canvas-2"></div>
 
-</p>
-      <p>3D Spatial Canvases:<br>
-  <div id="threejs-container" style="width: 720px; height: 400px; margin: 20px 0;"></div>
-</p>
-      <p>Temporal Structures:<br>
-  <div id="temporal-canvas"></div>
-</p>
-      <p>Relational Structures: <br>
-  <div id="relational-container"></div>
-</p>
+      <p><strong>3D Spatial Canvases:</strong></p>
+      <div id="threejs-container" style="width: 720px; height: 400px; margin: 20px 0; border: 2px solid #333; background: #f0f0f0; display: flex; align-items: center; justify-content: center;">
+        <span style="color: #666;">Loading Three.js scene 1...</span>
+      </div>
+      
+      <div id="threejs-container-2" style="width: 720px; height: 400px; margin: 20px 0; border: 2px solid #666; background: #e8e8e8; display: flex; align-items: center; justify-content: center;">
+        <span style="color: #666;">Loading Three.js scene 2...</span>
+      </div>
 
-      <p>Geospatial Structures: <br>
-  <a href="https://sh4771.github.io/assn6/" target="_blank">
-    View Geospatial Structures
-  </a>
-</p>
+      <p><strong>Temporal Structures:</strong></p>
+      <div id="temporal-canvas"></div>
 
-      <p>Engagement Components: <br>
-  <a href="https://sh4771.github.io/assn7/" target="_blank">
-    View Engagement Components
-  </a>
-</p>
+      <p><strong>Relational Structures:</strong></p>
+      <div id="relational-container"></div>
 
+      <p><strong>Geospatial Structures:</strong></p>
+      <a href="https://sh4771.github.io/assn6/" target="_blank">
+        View Geospatial Structures
+      </a>
+
+      <p><strong>Engagement Components - Firebase Real-time Poll:</strong></p>
+      <div class="poll-container">
+        <div id="connectionStatus" class="connection-status disconnected">Disconnected</div>
+        
+        <h3 class="poll-title">Campus Sustainability Poll</h3>
+        <p class="poll-question">
+          Should our university implement a mandatory composting program in all dining halls and residence buildings?
+        </p>
+
+        <div class="vote-buttons">
+          <button id="yesBtn" class="vote-btn yes-btn">Yes, Let's Compost!</button>
+          <button id="noBtn" class="vote-btn no-btn">No, Not Necessary</button>
+        </div>
+
+        <div class="results-section">
+          <h4 class="results-title">Live Results</h4>
+          
+          <div class="vote-result">
+            <span class="vote-label">Yes (Composting Program)</span>
+            <span id="yesCount" class="vote-count">0</span>
+          </div>
+          <div class="progress-bar">
+            <div id="yesProgress" class="progress-yes" style="width: 0%"></div>
+          </div>
+
+          <div class="vote-result">
+            <span class="vote-label">No (Against Program)</span>
+            <span id="noCount" class="vote-count">0</span>
+          </div>
+          <div class="progress-bar">
+            <div id="noProgress" class="progress-no" style="width: 0%"></div>
+          </div>
+
+          <div class="total-votes">
+            Total Votes: <span id="totalVotes">0</span>
+          </div>
+        </div>
+
+        <div class="ethics-note">
+          Data Privacy: This poll collects anonymous voting data to gauge campus opinion on sustainability initiatives. 
+          No personal information is stored. Results may be used for educational purposes and campus policy discussions.
+        </div>
+      </div>
     </div>
   </section>
 
+  <!-- Load external libraries first -->
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.11.8/lib/p5.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.11.8/lib/addons/p5.sound.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database-compat.js"></script>
+  
+  <!-- Load your custom scripts in order -->
   <script src="script.js"></script>
   <script src="p5-canvas.js"></script>
   <script src="threejs-scene.js"></script>
   <script src="temporal-structures-simple.js"></script>
   <script src="relational-structures.js"></script>
+
+  <!-- Firebase Poll Script -->
+  <script>
+    // Firebase Poll functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      // Only initialize Firebase poll when assignment tab is visible
+      const assignmentTab = document.getElementById('assignmentTab');
+      let firebaseInitialized = false;
+
+      function initFirebasePoll() {
+        if (firebaseInitialized) return;
+        
+        console.log('Initializing Firebase Poll...');
+        
+        // Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyBG7LOT3PZyM8bWPut1daCvUk1vQ7oStvi",
+          authDomain: "assignment7-74002.firebaseapp.com",
+          databaseURL: "https://assignment7-74002-default-rtdb.firebaseio.com",
+          projectId: "assignment7-74002",
+          storageBucket: "assignment7-74002.firebasestorage.app",
+          messagingSenderId: "1045451848603",
+          appId: "1:1045451848603:web:2e9ecfc35b22af56f2bf3e",
+          measurementId: "G-JPLLJ4WS4T"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Get database reference
+        const database = firebase.database();
+        const pollRef = database.ref('sustainability-poll');
+
+        // DOM elements
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const yesCount = document.getElementById('yesCount');
+        const noCount = document.getElementById('noCount');
+        const totalVotes = document.getElementById('totalVotes');
+        const connectionStatus = document.getElementById('connectionStatus');
+        const yesProgress = document.getElementById('yesProgress');
+        const noProgress = document.getElementById('noProgress');
+
+        // Vote counters
+        let votes = { yes: 0, no: 0 };
+
+        // Initialize poll data if it doesn't exist
+        pollRef.once('value').then((snapshot) => {
+          if (!snapshot.exists()) {
+            pollRef.set({
+              yes: 0,
+              no: 0,
+              question: "Should our university implement a mandatory composting program?",
+              created: firebase.database.ServerValue.TIMESTAMP
+            });
+          }
+        });
+
+        // Listen for real-time updates
+        pollRef.on('value', (snapshot) => {
+          const data = snapshot.val();
+          if (data) {
+            votes.yes = data.yes || 0;
+            votes.no = data.no || 0;
+            updateUI();
+          }
+        });
+
+        // Monitor connection status
+        const connectedRef = database.ref('.info/connected');
+        connectedRef.on('value', (snapshot) => {
+          if (snapshot.val() === true) {
+            connectionStatus.textContent = 'Connected';
+            connectionStatus.className = 'connection-status connected';
+          } else {
+            connectionStatus.textContent = 'Disconnected';
+            connectionStatus.className = 'connection-status disconnected';
+          }
+        });
+
+        // Vote handlers
+        yesBtn.addEventListener('click', () => {
+          vote('yes');
+        });
+
+        noBtn.addEventListener('click', () => {
+          vote('no');
+        });
+
+        // Vote function
+        function vote(option) {
+          const updates = {};
+          updates[option] = votes[option] + 1;
+          
+          // Add timestamp for this vote
+          updates['lastVote'] = firebase.database.ServerValue.TIMESTAMP;
+          
+          pollRef.update(updates).then(() => {
+            console.log(`Vote for ${option} recorded successfully!`);
+            
+            // Visual feedback
+            const btn = option === 'yes' ? yesBtn : noBtn;
+            btn.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+              btn.style.transform = '';
+            }, 150);
+            
+          }).catch((error) => {
+            console.error('Error recording vote:', error);
+            alert('Sorry, there was an error recording your vote. Please try again.');
+          });
+        }
+
+        // Update UI with current vote counts
+        function updateUI() {
+          const total = votes.yes + votes.no;
+          
+          yesCount.textContent = votes.yes;
+          noCount.textContent = votes.no;
+          totalVotes.textContent = total;
+
+          // Update progress bars
+          if (total > 0) {
+            const yesPercent = (votes.yes / total) * 100;
+            const noPercent = (votes.no / total) * 100;
+            
+            yesProgress.style.width = `${yesPercent}%`;
+            noProgress.style.width = `${noPercent}%`;
+          } else {
+            yesProgress.style.width = '0%';
+            noProgress.style.width = '0%';
+          }
+        }
+
+        firebaseInitialized = true;
+        console.log('Firebase Poll initialized successfully!');
+      }
+
+      // Initialize Firebase when assignment tab is clicked
+      if (assignmentTab) {
+        assignmentTab.addEventListener('click', function() {
+          setTimeout(initFirebasePoll, 200);
+        });
+      }
+
+      // Also initialize if assignment section is already visible
+      setTimeout(function() {
+        const assignmentSection = document.getElementById('assignmentSection');
+        if (assignmentSection && assignmentSection.classList.contains('visible')) {
+          initFirebasePoll();
+        }
+      }, 500);
+    });
+  </script>
 </body>
 </html>
