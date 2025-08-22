@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Violet Hyun's Website</title>
@@ -262,10 +264,11 @@
       <p><strong>Relational Structures:</strong></p>
       <div id="relational-container"></div>
 
-      <p><strong>Geospatial Structures:</strong></p>
-      <a href="https://sh4771.github.io/assn6/" target="_blank">
-        View Geospatial Structures
-      </a>
+      <p><strong>Geospatial Structures - Global Coffee Regions:</strong></p>
+<div id="mapbox-container-1" style="width: 100%; height: 450px; margin: 20px 0; border: 2px solid #8B4513; border-radius: 8px;"></div>
+<p style="font-size: 14px; color: #666; text-align: center;">
+  Interactive map showing major coffee-producing regions worldwide. Click on regions for detailed information about varieties, altitude, and flavor profiles.
+</p>
 
       <p><strong>Engagement Components - Firebase Real-time Poll:</strong></p>
       <div class="poll-container">
@@ -482,5 +485,6 @@
       }, 500);
     });
   </script>
+  <script src="mapbox-coffee.js"></script>
 </body>
 </html>
